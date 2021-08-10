@@ -8,3 +8,5 @@
 For details, check [avd-base container documentation](https://github.com/arista-netdevops-community/docker-avd-base). This readme only includes essential how-to instructions to avoid double maintenance.
 
 ## How-To
+
+## Known Caveats
