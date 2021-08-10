@@ -61,14 +61,14 @@ ENTRYPOINT [ "/bin/entrypoint.sh" ]
 COPY ./gitconfig /home/avd/gitconfig-avd-base-template
 
 # change this for every release
-ENV _AVD_VERSION="v2.2.0"
-ENV _CVP_VERSION="v3.0.0"
+ENV _AVD_VERSION="v3.0.0rc1"
+ENV _CVP_VERSION="v3.1.2"
 
 # labels to be changed for every release
 LABEL maintainer="Arista Ansible Team <ansible@arista.com>"
-LABEL com.example.version="2.0.0"
+LABEL com.example.version="avd3.0.0rc1_cvp3.1.2_debian"
 LABEL vendor1="Arista"
-LABEL com.example.release-date="2021-06-28"
+LABEL com.example.release-date="2021-07-10"
 LABEL com.example.version.is-production="False"
 
 # clone AVD and CVP collections
