@@ -63,7 +63,7 @@ ENTRYPOINT [ "/bin/entrypoint.sh" ]
 COPY ./gitconfig /home/avd/gitconfig-avd-base-template
 
 # change this for every release
-ENV _AVD_VERSION="v3.0.0rc1"
+ENV _AVD_VERSION="v3.0.0rc2"
 ENV _CVP_VERSION="v3.2.0"
 
 # labels to be changed for every release
