@@ -37,9 +37,12 @@ WORKDIR /home/avd
 
 # install zsh
 RUN wget --quiet https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true \
-    && echo 'PROMPT="%{$fg[red]%}A$fg[green]%}V$fg[blue]%}D 🐳 %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ ) %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)"' >> /home/avd/.zshrc \
+    && echo 'PROMPT="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"' >> ${HOME}/.zshrc \
+    && echo 'PROMPT+=" %{$fg[blue]%}(%{$fg[red]%}A%{$fg[green]%}V%{$fg[blue]%}D 🐳%{$fg[blue]%})%{$reset_color%}"' >> ${HOME}/.zshrc \
+    && echo 'PROMPT+=" %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)"' >> ${HOME}/.zshrc \
     && echo 'plugins=(ansible common-aliases safe-paste git jsontools history git-extras)' >> ${HOME}/.zshrc \
-    && echo 'eval `ssh-agent -s`' >> $HOME/.zshrc \
+    # redirect to &>/dev/null is required to silence `agent pid XXXX` message from ssh-agent 
+    && echo 'eval `ssh-agent -s` &>/dev/null' >> ${HOME}/.zshrc \
     && echo 'export TERM=xterm-256color' >>  $HOME/.zshrc \
     && echo "export LC_ALL=C.UTF-8" >> $HOME/.zshrc \
     && echo "export LANG=C.UTF-8" >> $HOME/.zshrc \
@@ -61,14 +64,14 @@ ENTRYPOINT [ "/bin/entrypoint.sh" ]
 COPY ./gitconfig /home/avd/gitconfig-avd-base-template
 
 # change this for every release
-ENV _AVD_VERSION="v3.0.0rc1"
-ENV _CVP_VERSION="v3.1.2"
+ENV _AVD_VERSION="v3.0.0rc2"
+ENV _CVP_VERSION="v3.2.0"
 
 # labels to be changed for every release
 LABEL maintainer="Arista Ansible Team <ansible@arista.com>"
-LABEL com.example.version="avd3.0.0rc1_cvp3.1.2_debian"
+LABEL com.example.version="avd3.0.0rc2_cvp3.2.0_debian"
 LABEL vendor1="Arista"
-LABEL com.example.release-date="2021-07-10"
+LABEL com.example.release-date="2021-10-04"
 LABEL com.example.version.is-production="False"
 
 # clone AVD and CVP collections
@@ -81,7 +84,8 @@ RUN _CURL=$(which curl) \
     && pip3 install --user --no-cache-dir -r /home/avd/ansible-avd/ansible_collections/arista/avd/requirements.txt \
     && pip3 install --user --no-cache-dir -r /home/avd/ansible-avd/ansible_collections/arista/avd/requirements-dev.txt \
     && pip3 install --user --no-cache-dir -r /home/avd/ansible-cvp/ansible_collections/arista/cvp/requirements.txt \
-    && pip3 install --user --no-cache-dir -r /home/avd/ansible-cvp/ansible_collections/arista/cvp/requirements-dev.txt
+    && pip3 install --user --no-cache-dir -r /home/avd/ansible-cvp/ansible_collections/arista/cvp/requirements-dev.txt \
+    && ansible-galaxy install -r /home/avd/ansible-avd/ansible_collections/arista/avd/collections.yml
 
 # if not running as VScode devcontainer, start in projects
 WORKDIR /home/avd/projects
