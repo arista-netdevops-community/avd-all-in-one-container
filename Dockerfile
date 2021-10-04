@@ -84,7 +84,8 @@ RUN _CURL=$(which curl) \
     && pip3 install --user --no-cache-dir -r /home/avd/ansible-avd/ansible_collections/arista/avd/requirements.txt \
     && pip3 install --user --no-cache-dir -r /home/avd/ansible-avd/ansible_collections/arista/avd/requirements-dev.txt \
     && pip3 install --user --no-cache-dir -r /home/avd/ansible-cvp/ansible_collections/arista/cvp/requirements.txt \
-    && pip3 install --user --no-cache-dir -r /home/avd/ansible-cvp/ansible_collections/arista/cvp/requirements-dev.txt
+    && pip3 install --user --no-cache-dir -r /home/avd/ansible-cvp/ansible_collections/arista/cvp/requirements-dev.txt \
+    && ansible-galaxy install -r /home/avd/ansible-avd/ansible_collections/arista/avd/collections.yml
 
 # if not running as VScode devcontainer, start in projects
 WORKDIR /home/avd/projects
