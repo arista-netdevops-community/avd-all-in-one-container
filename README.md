@@ -7,7 +7,7 @@
 `avd-all-in-one` is a close replica of `avd-base` container. The major difference is that Ansible AVD and Ansible CVP collections are pre-installed and container is ready to use.
 For details, check [avd-base container documentation](https://github.com/arista-netdevops-community/docker-avd-base). This readme only includes essential how-to instructions to avoid double maintenance.
 
-`ansible.cfg` in AVD inventory repository must have following settings for avd-all-in-one container to work correctly: `collections_paths = /home/avd/ansible-cvp:/home/avd/ansible-avd`  
+`ansible.cfg` in AVD inventory repository must have following settings for avd-all-in-one container to work correctly: `collections_paths = /home/avd/ansible-cvp:/home/avd/ansible-avd:/home/avd/.ansible/collections/ansible_collections`  
 If you have to override that for development purposes, mount ansible-avd or ansible-cvp repositories from your machine to `/home/avd/ansible-cvp` or `/home/avd/ansible-avd` manually or using similar settings in `vscode.json`:
 
 ```json
@@ -29,7 +29,7 @@ Type `exit` to leave the container environment.
 Create `.devcontainer` directory in your AVD inventory repository. Create `devcontainer.json` inside this directory.
 Use following `devcontainer.json` to start:
 
-```json
+```jsonc
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.183.0/containers/python-3
 {
