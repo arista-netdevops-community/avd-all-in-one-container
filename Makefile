@@ -10,6 +10,14 @@ help: ## Display help message
 build: ## Build docker image
 	if [ $(BRANCH) = 'master' ]; then \
       docker build --rm --pull -t $(DOCKER_NAME):latest -f $(CURRENT_DIR)/Dockerfile .;\
+	else \
+	  docker build --rm --pull -t $(DOCKER_NAME):$(BRANCH) -f $(CURRENT_DIR)/Dockerfile .;\
+    fi
+
+.PHONY: build_and_push
+build_and_push: ## Build docker image
+	if [ $(BRANCH) = 'master' ]; then \
+      docker build --rm --pull -t $(DOCKER_NAME):latest -f $(CURRENT_DIR)/Dockerfile .;\
 	  docker push avdteam/avd-all-in-one:latest;\
 	else \
 	  docker build --rm --pull -t $(DOCKER_NAME):$(BRANCH) -f $(CURRENT_DIR)/Dockerfile .;\

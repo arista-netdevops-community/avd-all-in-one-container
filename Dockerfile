@@ -62,6 +62,7 @@ ENTRYPOINT [ "/bin/entrypoint.sh" ]
 
 # add AVD gitconfig to be used if container is not called as VScode devcontainer
 COPY ./gitconfig /home/avd/gitconfig-avd-base-template
+COPY ./avd-all-in-one-requirements.txt /home/avd/avd-all-in-one-requirements.txt
 
 # change this for every release
 ENV _AVD_VERSION="v3.0.0rc2"
@@ -85,7 +86,8 @@ RUN _CURL=$(which curl) \
     && pip3 install --user --no-cache-dir -r /home/avd/ansible-avd/ansible_collections/arista/avd/requirements-dev.txt \
     && pip3 install --user --no-cache-dir -r /home/avd/ansible-cvp/ansible_collections/arista/cvp/requirements.txt \
     && pip3 install --user --no-cache-dir -r /home/avd/ansible-cvp/ansible_collections/arista/cvp/requirements-dev.txt \
-    && ansible-galaxy install -r /home/avd/ansible-avd/ansible_collections/arista/avd/collections.yml
+    && ansible-galaxy install -r /home/avd/ansible-avd/ansible_collections/arista/avd/collections.yml \
+    && pip3 install --user --no-cache-dir -r /home/avd/avd-all-in-one-requirements.txt
 
 # if not running as VScode devcontainer, start in projects
 WORKDIR /home/avd/projects
