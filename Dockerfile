@@ -65,14 +65,14 @@ COPY ./gitconfig /home/avd/gitconfig-avd-base-template
 COPY ./avd-all-in-one-requirements.txt /home/avd/avd-all-in-one-requirements.txt
 
 # change this for every release
-ENV _AVD_VERSION="v3.0.0rc2"
+ENV _AVD_VERSION="v3.0.0"
 ENV _CVP_VERSION="v3.2.0"
 
 # labels to be changed for every release
 LABEL maintainer="Arista Ansible Team <ansible@arista.com>"
-LABEL com.example.version="avd3.0.0rc2_cvp3.2.0_debian"
+LABEL com.example.version="avd3.0.0_cvp3.2.0_debian"
 LABEL vendor1="Arista"
-LABEL com.example.release-date="2021-10-04"
+LABEL com.example.release-date="2021-11-09"
 LABEL com.example.version.is-production="False"
 
 # clone AVD and CVP collections
