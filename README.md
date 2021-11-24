@@ -21,7 +21,7 @@ If you have to override that for development purposes, mount ansible-avd or ansi
 ### run AVD container manually
 
 Execute following command to run the avd-all-in-one container manually:
-`docker run --rm -it -v $(pwd):/home/avd/projects/ ankudinov/avd-base`
+`docker run --rm -it -v $(pwd):/home/avd/projects/ avdteam/avd-all-in-one`
 Type `exit` to leave the container environment.
 
 ### use avd-all-in-one as VSCode devcontainer
