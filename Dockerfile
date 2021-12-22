@@ -41,7 +41,7 @@ RUN wget --quiet https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/inst
     && echo 'PROMPT+=" %{$fg[blue]%}(%{$fg[red]%}A%{$fg[green]%}V%{$fg[blue]%}D 🐳%{$fg[blue]%})%{$reset_color%}"' >> ${HOME}/.zshrc \
     && echo 'PROMPT+=" %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)"' >> ${HOME}/.zshrc \
     && echo 'plugins=(ansible common-aliases safe-paste git jsontools history git-extras)' >> ${HOME}/.zshrc \
-    # redirect to &>/dev/null is required to silence `agent pid XXXX` message from ssh-agent 
+    # redirect to &>/dev/null is required to silence `agent pid XXXX` message from ssh-agent
     && echo 'eval `ssh-agent -s` &>/dev/null' >> ${HOME}/.zshrc \
     && echo 'export TERM=xterm-256color' >>  $HOME/.zshrc \
     && echo "export LC_ALL=C.UTF-8" >> $HOME/.zshrc \
@@ -65,14 +65,14 @@ COPY ./gitconfig /home/avd/gitconfig-avd-base-template
 COPY ./avd-all-in-one-requirements.txt /home/avd/avd-all-in-one-requirements.txt
 
 # change this for every release
-ENV _AVD_VERSION="v3.2.0"
+ENV _AVD_VERSION="v3.2.1"
 ENV _CVP_VERSION="v3.2.0"
 
 # labels to be changed for every release
 LABEL maintainer="Arista Ansible Team <ansible@arista.com>"
-LABEL com.example.version="avd3.2.0_cvp3.2.0_debian"
+LABEL com.example.version="avd3.2.1_cvp3.2.0_debian"
 LABEL vendor1="Arista"
-LABEL com.example.release-date="2021-12-20"
+LABEL com.example.release-date="2021-12-22"
 LABEL com.example.version.is-production="False"
 
 # clone AVD and CVP collections
