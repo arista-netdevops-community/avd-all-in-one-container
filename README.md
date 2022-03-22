@@ -2,10 +2,19 @@
 
 > AVD container with Ansible AVD and Ansible AVD collections installed
 
+## WARNING
+
+Breaking change in avd3.3.3_cvp3.3.1_debian and later
+
+- the default collection path `/home/avd/.ansible/collections/ansible_collections` will be used to install collections in the container.
+- `collections_paths` must be default and must NOT be set explicitly in the `ansible.cfg`
+
 ## Overview
 
 `avd-all-in-one` is a close replica of `avd-base` container. The major difference is that Ansible AVD and Ansible CVP collections are pre-installed and container is ready to use.
 For details, check [avd-base container documentation](https://github.com/arista-netdevops-community/docker-avd-base). This readme only includes essential how-to instructions to avoid double maintenance.
+
+### Before avd3.3.3_cvp3.3.1_debian
 
 `ansible.cfg` in AVD inventory repository must have following settings for avd-all-in-one container to work correctly: `collections_paths = /home/avd/ansible-cvp:/home/avd/ansible-avd:/home/avd/.ansible/collections/ansible_collections`  
 If you have to override that for development purposes, mount ansible-avd or ansible-cvp repositories from your machine to `/home/avd/ansible-cvp` or `/home/avd/ansible-avd` manually or using similar settings in `vscode.json`:
@@ -15,6 +24,19 @@ If you have to override that for development purposes, mount ansible-avd or ansi
     "source=${localWorkspaceFolder}/../ansible-avd,target=/home/avd/ansible-avd,type=bind,consistency=cached,readonly=true"
    ],
 ```
+
+### avd3.3.3_cvp3.3.1_debian and later
+
+`ansible.cfg` in AVD inventory repository must use the default collection path. `collections_paths` must NOT be set explicitly.
+If you have to override that for development purposes, mount ansible-avd or ansible-cvp repositories from your machine to `/home/avd/.ansible/collections/ansible_collections/arista/avd` and `/home/avd/.ansible/collections/ansible_collections/arista/cvp`
+
+```json
+"mounts": [
+    "source=${localWorkspaceFolder}/../ansible-avd,target=/home/avd/.ansible/collections/ansible_collections/arista/avd,type=bind,consistency=cached,readonly=true"
+   ],
+```
+
+In case of concerns, check your ansible environment with `ansible-galaxy collection list`.
 
 ## How-To
 
