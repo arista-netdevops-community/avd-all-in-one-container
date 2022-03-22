@@ -62,32 +62,31 @@ ENTRYPOINT [ "/bin/entrypoint.sh" ]
 
 # add AVD gitconfig to be used if container is not called as VScode devcontainer
 COPY ./gitconfig /home/avd/gitconfig-avd-base-template
-COPY ./avd-all-in-one-requirements.txt /home/avd/avd-all-in-one-requirements.txt
 
 # change this for every release
-ENV _AVD_VERSION="v3.3.3"
-ENV _CVP_VERSION="v3.3.1"
+ENV _AVD_VERSION="3.3.3"
+ENV _CVP_VERSION="3.3.1"
 
 # labels to be changed for every release
 LABEL maintainer="Arista Ansible Team <ansible@arista.com>"
 LABEL com.example.version="avd3.3.3_cvp3.3.1_debian"
 LABEL vendor1="Arista"
-LABEL com.example.release-date="2022-03-21"
+LABEL com.example.release-date="2022-03-22"
 LABEL com.example.version.is-production="False"
 
-# clone AVD and CVP collections
-RUN _CURL=$(which curl) \
-    && _GIT=$(which git) \
-    && _REPO_AVD="https://github.com/aristanetworks/ansible-avd.git" \
-    && _REPO_CVP="https://github.com/aristanetworks/ansible-cvp.git" \
-    && ${_GIT} clone --depth 1 --branch ${_AVD_VERSION} --single-branch ${_REPO_AVD} /home/avd/ansible-avd \
-    && ${_GIT} clone --depth 1 --branch ${_CVP_VERSION} --single-branch ${_REPO_CVP} /home/avd/ansible-cvp \
-    && pip3 install --user --no-cache-dir -r /home/avd/ansible-avd/ansible_collections/arista/avd/requirements.txt \
-    && pip3 install --user --no-cache-dir -r /home/avd/ansible-avd/ansible_collections/arista/avd/requirements-dev.txt \
-    && pip3 install --user --no-cache-dir -r /home/avd/ansible-cvp/ansible_collections/arista/cvp/requirements.txt \
-    && pip3 install --user --no-cache-dir -r /home/avd/ansible-cvp/ansible_collections/arista/cvp/requirements-dev.txt \
-    && ansible-galaxy install -r /home/avd/ansible-avd/ansible_collections/arista/avd/collections.yml \
-    && pip3 install --user --no-cache-dir -r /home/avd/avd-all-in-one-requirements.txt
+# install ansible.cvp, ansible.avd collections and their requirements
+# ansible.avd pip requirements are superior, ansible.cvp requirements will be ignored
+RUN wget --quiet https://raw.githubusercontent.com/aristanetworks/ansible-avd/v${_AVD_VERSION}/ansible_collections/arista/avd/requirements.txt \
+    && wget --quiet https://raw.githubusercontent.com/aristanetworks/ansible-avd/v${_AVD_VERSION}/ansible_collections/arista/avd/requirements-dev.txt \
+    && pip3 install "ansible-core>=2.11.3,<2.13.0" \
+    && pip3 install --user --no-cache-dir -r requirements.txt \
+    && pip3 install --user --no-cache-dir -r requirements-dev.txt \
+    # install ansible.cvp first to control version explicitely without installing dependencies
+    && ansible-galaxy collection install arista.avd:==${_CVP_VERSION} --no-deps \
+    # install ansible.avd and it's dependencies, ansible.cvp will not be installed as it already exists
+    && ansible-galaxy collection install arista.avd:==${_AVD_VERSION} \
+    # install community.general to support callback plugins in ansible.cfg, etc.
+    && ansible-galaxy collection install community.general
 
 # if not running as VScode devcontainer, start in projects
 WORKDIR /home/avd/projects
