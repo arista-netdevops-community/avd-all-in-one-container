@@ -1,4 +1,4 @@
-FROM python:3.9.5-slim
+FROM python:3.11.0b5-bullseye 
 
 # install tools permanently
 RUN apt-get update \
@@ -65,13 +65,13 @@ COPY ./gitconfig /home/avd/gitconfig-avd-base-template
 
 # change this for every release
 ENV _AVD_VERSION="3.6.0"
-ENV _CVP_VERSION="3.3.1"
+ENV _CVP_VERSION="3.4.0"
 
 # labels to be changed for every release
 LABEL maintainer="Arista Ansible Team <ansible@arista.com>"
-LABEL com.example.version="avd3.6.0_cvp3.3.1_debian"
+LABEL com.example.version="avd3.6.0_cvp3.4.0_debian"
 LABEL vendor1="Arista"
-LABEL com.example.release-date="2022-07-08"
+LABEL com.example.release-date="2022-10-08"
 LABEL com.example.version.is-production="False"
 
 # install ansible.cvp, ansible.avd collections and their requirements
