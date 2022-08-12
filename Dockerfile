@@ -1,4 +1,4 @@
-FROM python:3.9.5-slim
+FROM python:3.10.6-slim
 
 # install tools permanently
 RUN apt-get update \
