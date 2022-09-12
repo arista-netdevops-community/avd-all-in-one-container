@@ -111,6 +111,22 @@ Use following `devcontainer.json` to start:
 Unfortunately `devcontainer.json` is not yet supported with VScode Remote-SSH plugin. You can track recent development [here](https://github.com/microsoft/vscode-remote-release/issues/2994).
 The easiest way to use avd-all-in-one container with remote SSH is creating a simple alias: `alias avd="sudo docker run --rm -it -v $(pwd):/home/avd/projects/ avdteam/avd-all-in-one"`
 
+
+### run avd-all-in-one in k8s
+
+[k8s-avd-cvp.yml](k8s-avd-cvp.yml) is an example pod definition for running avd-all-in-one on CloudVision (CentOS), however
+it should work on other linux distributions (the CVP env vars won't be needed in that case).
+
+The below example is for running the pod on one specific node (set by the `nodeName: $PRIMARY_HOSTNAME` node selection in the spec)
+
+1. Download the docker image: `docker pull avdteam/avd-all-in-one`
+2. Create avd group and user: `groupadd -g 1000 avd && useradd avd -u 1000 -g 1000`
+3. Create projects in `/home/avd`
+4. Deploy the k8s pod: `envsubst < /cvpi/conf/kubernetes/avd.yml | kubectl apply -f -`
+
+> Note that the pod can be also deployed on any node by removing the `nodeName` field from the spec, however that would also require
+> pulling the image onto all nodes and synchronozing the project files between all nodes.
+
 ## Known Caveats
 
 ### Curly Brackets May Not Work as Expected

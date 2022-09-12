@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: avd
+  labels:
+    app: avd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: avd
+  template:
+    metadata:
+      labels:
+        app: avd
+    spec:
+      node: $PRIMARY_HOSTNAME
+      hostNetwork: false
+      securityContext:
+        runAsUser: 1000
+      dnsPolicy: ClusterFirst
+      containers:
+      - name: avd
+        image: avdteam/avd-all-in-one:latest
+        imagePullPolicy: Never
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            drop:
+              - all
+          readOnlyRootFilesystem: false
+        env:
+          - name: CVP_MODE
+            value: $CVP_MODE
+          - name: CVP_VERSION
+            value: $CVP_VERSION
+          - name: PRIMARY_DEVICE_INTF_IP
+            value: $PRIMARY_DEVICE_INTF_IP
+          - name: SECONDARY_DEVICE_INTF_IP
+            value: $SECONDARY_DEVICE_INTF_IP
+          - name: TERTIARY_DEVICE_INTF_IP
+            value: $TERTIARY_DEVICE_INTF_IP
+          - name: PRIMARY_HOST_IP
+            value: $PRIMARY_HOST_IP
+          - name: SECONDARY_HOST_IP
+            value: $SECONDARY_HOST_IP
+          - name: TERTIARY_HOST_IP
+            value: $TERTIARY_HOST_IP
+          - name: PRIMARY_HOSTNAME
+            value: $PRIMARY_HOSTNAME
+          - name: SECONDARY_HOSTNAME
+            value: $SECONDARY_HOSTNAME
+          - name: TERTIARY_HOSTNAME
+            value: $TERTIARY_HOSTNAME
+          - name: AERIS_INGEST_KEY
+            value: '$AERIS_INGEST_KEY'
+          - name: CURRENT_NODE_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+        command:
+        - zsh
+        - -c
+        - --
+        args:
+        - while true;
+        - do sleep 3000;
+        - done;
+        volumeMounts:
+        - name: tmpfs
+          mountPath: /tmp
+        - name: certs-dir
+          mountPath: /usr/share/nginx/images
+          readOnly: true
+        - name: lib64
+          mountPath: /usr/lib64
+          readOnly: true
+        - name: home-avd
+          mountPath: /projects
+          readOnly: false
+        resources:
+          limits:
+            cpu: "3"
+            memory: "4Gi"
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+      terminationGracePeriodSeconds: 10
+      volumes:
+      - name: tmpfs
+        hostPath:
+          path: /tmp
+      - name: certs-dir
+        hostPath:
+          path: /usr/share/nginx/certs
+      - name: lib64
+        hostPath:
+          path: /usr/lib64
+      - name: home-avd
+        hostPath:
+          path: /home/avd
