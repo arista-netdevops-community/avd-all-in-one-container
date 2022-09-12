@@ -16,7 +16,7 @@ spec:
     spec:
       hostNetwork: false
       securityContext:
-        runAsUser: 10021
+        runAsUser: 1000
       dnsPolicy: ClusterFirst
       containers:
       - name: avd

@@ -117,7 +117,7 @@ The easiest way to use avd-all-in-one container with remote SSH is creating a si
 [k8s-avd-cvp.yml](k8s-avd-cvp.yml) is an example pod definition for running avd-all-in-one on CloudVision (CentOS), however
 it should work on other linux distributions (the CVP env vars won't be needed in that case).
 
-1. Download the docker image: `docker pull avdteam/avd-all-in-one`
+1. Download the docker image: `docker pull avdteam/avd-all-in-one` (run it on all CVP nodes in case of multinode)
 2. Create avd group and user: `groupadd -g 1000 avd && useradd avd -u 1000 -g 1000`
 3. Create projects in `/home/avd`
 4. Deploy the k8s pod: `kubectl apply -f /cvpi/conf/kubernetes/k8s-avd-cvp.yml`
