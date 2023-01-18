@@ -71,7 +71,7 @@ ENV _CVP_VERSION="3.6.0"
 LABEL maintainer="Arista Ansible Team <ansible@arista.com>"
 LABEL com.example.version="avd3.8.0_cvp3.6.0_debian"
 LABEL vendor1="Arista"
-LABEL com.example.release-date="2022-08-12"
+LABEL com.example.release-date="2023-01-18"
 LABEL com.example.version.is-production="False"
 
 # install ansible.cvp, ansible.avd collections and their requirements
