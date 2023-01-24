@@ -39,7 +39,8 @@ WORKDIR /home/avd
 RUN wget --quiet https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true \
     && echo 'PROMPT="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"' >> ${HOME}/.zshrc \
     && echo 'PROMPT+=" %{$fg[blue]%}(%{$fg[red]%}A%{$fg[green]%}V%{$fg[blue]%}D 🐳%{$fg[blue]%})%{$reset_color%}"' >> ${HOME}/.zshrc \
-    && echo 'PROMPT+=" %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)"' >> ${HOME}/.zshrc \
+    && echo 'PROMPT+=" %{$fg[cyan]%}%c%{$reset_color%}"' >> ${HOME}/.zshrc \
+    && echo "PROMPT+=' \$(git_prompt_info)'" >> ${HOME}/.zshrc \
     && echo 'plugins=(ansible common-aliases safe-paste git jsontools history git-extras)' >> ${HOME}/.zshrc \
     # redirect to &>/dev/null is required to silence `agent pid XXXX` message from ssh-agent
     && echo 'eval `ssh-agent -s` &>/dev/null' >> ${HOME}/.zshrc \
