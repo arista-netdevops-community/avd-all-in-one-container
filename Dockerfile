@@ -78,7 +78,7 @@ LABEL com.example.version.is-production="False"
 # ansible.avd pip requirements are superior, ansible.cvp requirements will be ignored
 RUN wget --quiet https://raw.githubusercontent.com/aristanetworks/ansible-avd/v${_AVD_VERSION}/ansible_collections/arista/avd/requirements.txt \
     && wget --quiet https://raw.githubusercontent.com/aristanetworks/ansible-avd/v${_AVD_VERSION}/ansible_collections/arista/avd/requirements-dev.txt \
-    && pip3 install "ansible-core>=2.11.3,<2.13.0" \
+    && pip3 install "ansible-core>=2.13.1,<2.14.0" \
     && pip3 install --user --no-cache-dir -r requirements.txt \
     && pip3 install --user --no-cache-dir -r requirements-dev.txt \
     # install ansible.cvp first to control version explicitely without installing dependencies
