@@ -64,21 +64,21 @@ ENTRYPOINT [ "/bin/entrypoint.sh" ]
 COPY ./gitconfig /home/avd/gitconfig-avd-base-template
 
 # change this for every release
-ENV _AVD_VERSION="3.7.0"
-ENV _CVP_VERSION="3.4.0"
+ENV _AVD_VERSION="3.8.1"
+ENV _CVP_VERSION="3.6.0"
 
 # labels to be changed for every release
 LABEL maintainer="Arista Ansible Team <ansible@arista.com>"
-LABEL com.example.version="avd3.7.0_cvp3.4.0_debian"
+LABEL com.example.version="avd3.8.1_cvp3.6.0_debian"
 LABEL vendor1="Arista"
-LABEL com.example.release-date="2022-08-12"
+LABEL com.example.release-date="2023-01-24"
 LABEL com.example.version.is-production="False"
 
 # install ansible.cvp, ansible.avd collections and their requirements
 # ansible.avd pip requirements are superior, ansible.cvp requirements will be ignored
 RUN wget --quiet https://raw.githubusercontent.com/aristanetworks/ansible-avd/v${_AVD_VERSION}/ansible_collections/arista/avd/requirements.txt \
     && wget --quiet https://raw.githubusercontent.com/aristanetworks/ansible-avd/v${_AVD_VERSION}/ansible_collections/arista/avd/requirements-dev.txt \
-    && pip3 install "ansible-core>=2.11.3,<2.13.0" \
+    && pip3 install "ansible-core>=2.13.1,<2.14.0" \
     && pip3 install --user --no-cache-dir -r requirements.txt \
     && pip3 install --user --no-cache-dir -r requirements-dev.txt \
     # install ansible.cvp first to control version explicitely without installing dependencies
