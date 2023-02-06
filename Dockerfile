@@ -83,7 +83,7 @@ RUN wget --quiet https://raw.githubusercontent.com/aristanetworks/ansible-avd/v$
     && pip3 install --user --no-cache-dir -r requirements.txt \
     && pip3 install --user --no-cache-dir -r requirements-dev.txt \
     # install ansible.cvp first to control version explicitely without installing dependencies
-    && ansible-galaxy collection install arista.avd:==${_CVP_VERSION} --no-deps \
+    && ansible-galaxy collection install arista.cvp:==${_CVP_VERSION} --no-deps \
     # install ansible.avd and it's dependencies, ansible.cvp will not be installed as it already exists
     && ansible-galaxy collection install arista.avd:==${_AVD_VERSION} \
     # install community.general to support callback plugins in ansible.cfg, etc.
