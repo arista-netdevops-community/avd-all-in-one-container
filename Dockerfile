@@ -65,12 +65,12 @@ ENTRYPOINT [ "/bin/entrypoint.sh" ]
 COPY ./gitconfig /home/avd/gitconfig-avd-base-template
 
 # change this for every release
-ENV _AVD_VERSION="3.8.1"
+ENV _AVD_VERSION="3.8.2"
 ENV _CVP_VERSION="3.6.0"
 
 # labels to be changed for every release
 LABEL maintainer="Arista Ansible Team <ansible@arista.com>"
-LABEL com.example.version="avd3.8.1_cvp3.6.0_debian"
+LABEL com.example.version="avd3.8.2_cvp3.6.0_debian"
 LABEL vendor1="Arista"
 LABEL com.example.release-date="2023-01-24"
 LABEL com.example.version.is-production="False"
