@@ -16,7 +16,7 @@ For details, check [avd-base container documentation](https://github.com/arista-
 
 ### Before avd3.3.3_cvp3.3.1_debian
 
-`ansible.cfg` in AVD inventory repository must have following settings for avd-all-in-one container to work correctly: `collections_paths = /home/avd/ansible-cvp:/home/avd/ansible-avd:/home/avd/.ansible/collections/ansible_collections`  
+`ansible.cfg` in AVD inventory repository must have following settings for avd-all-in-one container to work correctly: `collections_paths = /home/avd/ansible-cvp:/home/avd/ansible-avd:/home/avd/.ansible/collections/ansible_collections`
 If you have to override that for development purposes, mount ansible-avd or ansible-cvp repositories from your machine to `/home/avd/ansible-cvp` or `/home/avd/ansible-avd` manually or using similar settings in `vscode.json`:
 
 ```json
@@ -59,7 +59,7 @@ Use following `devcontainer.json` to start:
     "image": "avdteam/avd-all-in-one:latest",
 
     // Set *default* container specific settings.json values on container create.
-    "settings": { 
+    "settings": {
         "python.testing.pytestPath": "/root/.local/bin/pytest",
 
         "python.pythonPath": "/usr/local/bin/python",
@@ -126,6 +126,18 @@ The below example is for running the pod on one specific node (set by the `nodeN
 
 > Note that the pod can be also deployed on any node by removing the `nodeName` field from the spec, however that would also require
 > pulling the image onto all nodes and synchronozing the project files between all nodes.
+
+## Multi-Platform Builds
+
+It is possible to build avd-all-in-one using Docker desktop's buildx framework for multiple architectures (e.g. x86 and arm64).  This requires setup of a 'docker-container' builder using:
+
+```
+docker buildx create --name mybuilder --driver docker-container --bootstrap --use
+```
+
+For more information see the [Docker documentation](https://docs.docker.com/build/building/multi-platform/).
+
+Also note that it is not currently possible to build a multi-platform container and export to the local image store.  See (https://github.com/docker/buildx/issues/59) for more information.
 
 ## Known Caveats
 

@@ -24,6 +24,16 @@ build_and_push: ## Build docker image
 	  docker push avdteam/avd-all-in-one:$(BRANCH);\
     fi
 
+# Note that there is currently no way to locally load a multi-platform image
+# See https://github.com/docker/buildx/issues/59
+.PHONY: buildx_and_push
+buildx_and_push: ## Build multi-platform docker image
+	if [ $(BRANCH) = 'master' ]; then \
+	  docker buildx build --push --platform linux/amd64,linux/arm64 --rm --pull -t $(DOCKER_NAME):latest -f $(CURRENT_DIR)/Dockerfile .;\
+	else \
+	  docker buildx build --push  --platform linux/amd64,linux/arm64 --rm --pull -t $(DOCKER_NAME):$(BRANCH) -f $(CURRENT_DIR)/Dockerfile .;\
+    fi
+
 .PHONY: run
 run: ## run docker image
 	if [ $(BRANCH) = 'master' ]; then \
