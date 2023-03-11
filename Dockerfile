@@ -65,15 +65,17 @@ ENTRYPOINT [ "/bin/entrypoint.sh" ]
 COPY ./gitconfig /home/avd/gitconfig-avd-base-template
 
 # change this for every release
-ENV _AVD_VERSION="3.8.2"
-ENV _CVP_VERSION="3.6.0"
+ARG _AVD_VERSION
+ARG _CVP_VERSION
+ARG _RELEASE_DATE
 
 # labels to be changed for every release
 LABEL maintainer="Arista Ansible Team <ansible@arista.com>"
-LABEL com.example.version="avd3.8.2_cvp3.6.0_debian"
+LABEL com.example.version="avd${_AVD_VERSION}_cvp${_CVP_VERSION}"
 LABEL vendor1="Arista"
-LABEL com.example.release-date="2023-01-24"
+LABEL com.example.release-date=${_RELEASE_DATE}
 LABEL com.example.version.is-production="False"
+LABEL org.opencontainers.image.description="Ansible AVD all-in-one container, AVD version ${_AVD_VERSION}, CVP version ${_CVP_VERSION}"
 
 # install ansible.cvp, ansible.avd collections and their requirements
 # ansible.avd pip requirements are superior, ansible.cvp requirements will be ignored

@@ -2,9 +2,18 @@
 
 > AVD container with Ansible AVD and Ansible AVD collections installed
 
-## WARNING
+## WARNINGS AND NEWS
 
-Breaking change in avd3.3.3_cvp3.3.1_debian and later
+### AVD All-in-one Container Moves to GHCR
+
+> New versions of AVD all-in-one container are not available on Docker Hub. The last version available on Docker Hub is avd 3.8.2, cvp3.6.0.
+> New images are available on Github Container Registry: `docker pull ghcr.io/arista-netdevops-community/avd-all-in-one-container/avd-all-in-one:<tag>`
+
+### AVD All-in-one Container Supports ARM64
+
+The AVD all-in-one container is multi-platform now. You can pull it directly from GHCR on M1 Mac for example instead of building it locally.
+
+### Breaking change in avd3.3.3_cvp3.3.1_debian and later
 
 - the default collection path `/home/avd/.ansible/collections/ansible_collections` will be used to install collections in the container.
 - `collections_paths` must be default and must NOT be set explicitly in the `ansible.cfg`
