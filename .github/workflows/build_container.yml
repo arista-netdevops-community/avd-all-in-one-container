@@ -42,9 +42,24 @@ jobs:
           tags: |
             type=raw,value=latest
             type=raw,value=avd${{ env._AVD_VERSION }}_cvp${{ env._CVP_VERSION }}
+      # build the image
+      - name: Build without pushing
+        uses: docker/build-action@v4
+        if: github.repository_owner != 'arista-netdevops-community'
+        with:
+          push: true
+          build-args: |
+            _AVD_VERSION=${{ env._AVD_VERSION }}
+            _CVP_VERSION=${{ env._CVP_VERSION }}
+            _RELEASE_DATE=${{ env._RELEASE_DATE }}
+          # images: ghcr.io/arista-netdevops-community/avd-all-in-one-container/avd-all-in-one
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/arm64/v8,linux/amd64
       # build and push the image
       - name: Build and push
         uses: docker/build-push-action@v4
+        if: github.repository_owner == 'arista-netdevops-community'
         with:
           push: true
           build-args: |
