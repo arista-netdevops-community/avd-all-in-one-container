@@ -42,7 +42,7 @@ jobs:
           tags: |
             type=raw,value=latest
             type=raw,value=avd${{ env._AVD_VERSION }}_cvp${{ env._CVP_VERSION }}
-      # build the image
+      # only build the image in forked branches
       - name: Build without pushing
         uses: docker/build-push-action@v4
         if: github.repository_owner != 'arista-netdevops-community'
@@ -73,6 +73,7 @@ jobs:
       # delete old images
       - name: Delete old containers
         uses: actions/delete-package-versions@v4
+        if: github.repository_owner == 'arista-netdevops-community'
         with:
           package-name: avd-all-in-one-container/avd-all-in-one
           package-type: container
