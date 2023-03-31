@@ -2,9 +2,9 @@
 name: build avd-all-in-one container
 
 env:
-  _AVD_VERSION: "3.8.3"
+  _AVD_VERSION: "3.8.4"
   _CVP_VERSION: "3.6.0"
-  _RELEASE_DATE: "2023-03-11"
+  _RELEASE_DATE: "2023-03-27"
 
 on:
   push:
@@ -42,9 +42,24 @@ jobs:
           tags: |
             type=raw,value=latest
             type=raw,value=avd${{ env._AVD_VERSION }}_cvp${{ env._CVP_VERSION }}
+      # only build the image in forked branches
+      - name: Build without pushing
+        uses: docker/build-push-action@v4
+        if: github.repository_owner != 'arista-netdevops-community'
+        with:
+          push: false
+          build-args: |
+            _AVD_VERSION=${{ env._AVD_VERSION }}
+            _CVP_VERSION=${{ env._CVP_VERSION }}
+            _RELEASE_DATE=${{ env._RELEASE_DATE }}
+          # images: ghcr.io/arista-netdevops-community/avd-all-in-one-container/avd-all-in-one
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/arm64/v8,linux/amd64
       # build and push the image
       - name: Build and push
         uses: docker/build-push-action@v4
+        if: github.repository_owner == 'arista-netdevops-community'
         with:
           push: true
           build-args: |
@@ -58,8 +73,9 @@ jobs:
       # delete old images
       - name: Delete old containers
         uses: actions/delete-package-versions@v4
+        if: github.repository_owner == 'arista-netdevops-community'
         with:
           package-name: avd-all-in-one-container/avd-all-in-one
           package-type: container
-          min-versions-to-keep: 15
+          min-versions-to-keep: 60
           token: ${{ secrets.GITHUB_TOKEN }}
