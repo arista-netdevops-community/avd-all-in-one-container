@@ -77,5 +77,5 @@ jobs:
         with:
           package-name: avd-all-in-one-container/avd-all-in-one
           package-type: container
-          min-versions-to-keep: 15
+          min-versions-to-keep: 60
           token: ${{ secrets.GITHUB_TOKEN }}
