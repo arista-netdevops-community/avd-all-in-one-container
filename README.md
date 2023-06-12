@@ -8,6 +8,7 @@
 
 > New versions of AVD all-in-one container are not available on Docker Hub. The last version available on Docker Hub is avd 3.8.2, cvp3.6.0.
 > New images are available on Github Container Registry: `docker pull ghcr.io/arista-netdevops-community/avd-all-in-one-container/avd-all-in-one:<tag>`
+> OR if using containerd please use `ctr image pull  ghcr.io/arista-netdevops-community/avd-all-in-one-container/avd-all-in-one:<tag>`
 
 ### AVD All-in-one Container Supports ARM64
 
