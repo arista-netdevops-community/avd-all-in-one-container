@@ -76,7 +76,7 @@ spec:
           mountPath: /usr/lib64
           readOnly: true
         - name: home-avd
-          mountPath: /projects
+          mountPath: /home/avd/projects
           readOnly: false
         resources:
           limits:
@@ -98,4 +98,4 @@ spec:
           path: /usr/lib64
       - name: home-avd
         hostPath:
-          path: /home/avd
+          path: /home/avd/projects
