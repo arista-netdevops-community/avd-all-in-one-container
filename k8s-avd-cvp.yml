@@ -14,7 +14,7 @@ spec:
       labels:
         app: avd
     spec:
-      node: $PRIMARY_HOSTNAME
+      nodeName: $PRIMARY_HOSTNAME
       hostNetwork: false
       securityContext:
         runAsUser: 1000
