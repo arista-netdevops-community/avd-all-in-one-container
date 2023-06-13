@@ -2,9 +2,9 @@
 name: build avd-all-in-one container
 
 env:
-  _AVD_VERSION: "3.8.4"
-  _CVP_VERSION: "3.6.0"
-  _RELEASE_DATE: "2023-03-27"
+  _AVD_VERSION: "4.0.0"
+  _CVP_VERSION: "3.6.1"
+  _RELEASE_DATE: "2023-06-13"
 
 on:
   push:
