@@ -2,9 +2,13 @@
 name: build avd-all-in-one container
 
 env:
-  _AVD_VERSION: "4.0.0"
+  _AVD_VERSION: "4.1.0"
   _CVP_VERSION: "3.6.1"
-  _RELEASE_DATE: "2023-06-13"
+  _RELEASE_DATE: "2023-06-19"
+  # to avoid unknown/unknown image build
+  # check following thread for the details:
+  #   https://github.com/orgs/community/discussions/45969
+  BUILDX_NO_DEFAULT_ATTESTATIONS: 1
 
 on:
   push:
