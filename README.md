@@ -4,6 +4,9 @@
 
 ## WARNINGS AND NEWS
 
+> **IMPORTANT WARNING**: The `all-in-one` container will be replaced with [AVD container images](https://avd.arista.com/4.5/docs/containers/overview.html) in the near future. The new container images are already available for testing as a preview. That means they are functional, but frequent bugfixes and breaking changes are expected until the release.  
+> `all-in-one` container image will not be updated without a request. If you need a newer release of `all-in-one` and AVD container images are not enough to support the task, please contact your SE.
+
 ### AVD All-in-one Container Moves to GHCR
 
 > New versions of AVD all-in-one container are not available on Docker Hub. The last version available on Docker Hub is avd 3.8.2, cvp3.6.0.
