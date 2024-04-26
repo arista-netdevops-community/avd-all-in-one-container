@@ -1,3 +1,7 @@
+# DEPRECATED
+
+![No Maintenance](https://img.shields.io/maintenance/no/2024.svg)
+
 # avd-all-in-one-container
 
 > AVD container with Ansible AVD and Ansible AVD collections installed
