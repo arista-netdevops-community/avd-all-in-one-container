@@ -2,6 +2,8 @@
 
 ![No Maintenance](https://img.shields.io/maintenance/no/2024.svg)
 
+You can use [AVD Universal](https://avd.arista.com/stable/docs/containers/overview.html) container image as a replacement. However it's not 1:1 replacement for `all-in-one`. Make sure you test it for your use case first!
+
 # avd-all-in-one-container
 
 > AVD container with Ansible AVD and Ansible AVD collections installed
